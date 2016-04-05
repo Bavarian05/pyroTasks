@@ -3,14 +3,11 @@ import { SIGNUP, LOGIN, LOGOUT } from '../actions/authActions'
 const INITIAL_STATE = false
 
 export default function(state = INITIAL_STATE, action){
-  switch(action.type) {
-    case SIGNUP:
-      return true
-    case LOGIN:
-      return true
-    case LOGOUT:
-      return false
-    default:
-      return state
+  console.log("this is the action.payload", action.payload)
+  if(action.type === SIGNUP){
+    window.localStorage.setItem('pyroToken', action.payload.data.token)
+    return true
+  } else {
+    return state
   }
 }

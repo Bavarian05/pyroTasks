@@ -6,10 +6,10 @@ export const LOGOUT = 'LOGOUT'
 
 const ROOT_URL = 'http://localhost:8080/api'
 
-export function signup () {
-  const request = Axios.get(`${ROOT_URL}/signup`)
+export function signup (signupData) {
+  const request = Axios.post(`${ROOT_URL}/signup`, signupData)
   return {
-    type: "SIGNUP",
+    type: SIGNUP,
     payload: request
   }
 }
@@ -17,7 +17,7 @@ export function signup () {
 export function login (loginData) {
   const request = Axios.post(`${ROOT_URL}/login`, loginData)
   return {
-    type: "LOGIN",
+    type: LOGIN,
     payload: request
   }
 }
@@ -25,7 +25,7 @@ export function login (loginData) {
 export function logout () {
   const request = Axios.get(`${ROOT_URL}/logout`)
   return {
-    type: "LOGOUT",
+    type: LOGOUT,
     payload: request
   }
 }

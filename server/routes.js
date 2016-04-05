@@ -1,6 +1,7 @@
 var express = require('express')
 var api = express.Router()
 var parser = require('body-parser')
+var bcrypt = require('bcrypt-nodejs')
 var util = require('./utilities')
 var db = require('./db')
 
@@ -33,9 +34,30 @@ var storage = {
 }
 
 api.post('/signup', function(req, res){
-  console.log('Successful signup');
-  res.sendStatus(201)
-})
+  var name = req.body.name;
+  var email = req.body.email;
+  var password = req.body.password;
+  if(name !== null && email !== null && password !== null){
+    db.query('SELECT * FROM USERS WHERE email = ?;', [email], function(err, rows){
+      if(rows.length === 0){
+        password = bcrypt.hashSync(password);
+        db.query('INSERT INTO USERS SET email = ?, name = ?, password = ?;',
+        [email, name, password],
+        function(err, rows){
+          if(err){
+            console.log(err);
+            res.sendStatus(500);
+          }
+          util.createToken(req, res, rows.insertId);
+        });
+      } else {
+        res.sendStatus(409);
+      }
+    });
+  } else {
+    res.sendStatus(400);
+  }
+});
 
 api.post('/login', function(req, res){
   console.log("login credentials from login form", req.body.username, req.body.password);
@@ -58,7 +80,7 @@ api.post('/groups', function(req, res){
         console.error(err);
         res.sendStatus(500);
       } else {
-        
+
         res.sendStatus(201);
       }
     });
