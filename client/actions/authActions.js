@@ -21,11 +21,3 @@ export function login (loginData) {
     payload: request
   }
 }
-
-export function logout () {
-  const request = Axios.get(`${ROOT_URL}/logout`)
-  return {
-    type: LOGOUT,
-    payload: request
-  }
-}

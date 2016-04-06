@@ -33,6 +33,11 @@ class AddTaskForm extends Component {
         </div>
 
         <div>
+          <input type="text" {...description} placeholder='Description' className="biginput-invert"/>
+          <div className="err-msg">{description.touched ? description.error : ''}</div>
+        </div>
+
+        <div>
           <input type="date" {...due_date} placeholder='Due Date' className="biginput-invert"/>
           <div className="err-msg">{due_date.touched ? due_date.error : ''}</div>
         </div>
@@ -55,6 +60,7 @@ function validate(values) {
   const errors = {}
   if(!values.task_name) errors.task_name = 'Please enter a task name'
   if(!values.assignees) errors.assignees = 'Please include assignees'
+  if(!values.description) errors.description = 'Please include a description'
   if(!values.due_date) errors.due_date = 'Please enter a due date'
   if(!values.owner) errors.owner = 'Please include an owner of the task'
 
@@ -63,6 +69,6 @@ function validate(values) {
 
 export default reduxForm({
   form: "AddTaskForm",
-  fields: ['task_name', 'assignees', 'due_date', 'owner'],
+  fields: ['task_name', 'assignees', 'description', 'due_date', 'owner'],
   validate
 }, null, {addTask, fetchTasks})(AddTaskForm)

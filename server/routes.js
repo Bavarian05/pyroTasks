@@ -59,16 +59,40 @@ api.post('/signup', function(req, res){
   }
 });
 
-api.post('/login', function(req, res){
-  console.log("login credentials from login form", req.body.username, req.body.password);
-  if(req.body.username === storage.username && req.body.password === storage.password){
-    console.log('Successful login');
-    res.sendStatus(200)
-  } else {
-    console.log('Unsuccessful login');
-    res.sendStatus(401)
+api.post('/login', function(req, res) {
+  var name = req.body.name;
+  var password = req.body.password;
+  if (name !== null || password !== null) {
+    db.query('SELECT * from USERS WHERE NAME = ?;', [name], function(err, rows) {
+      if (err) {
+        console.log(err);
+        response.sendStatus(500);
+      } else {
+        // If user doesn't exist
+        if (rows.length > 0) {
+          // Password check
+          bcrypt.compare(password, rows[0].password, function(err, result) {
+            if (err) {
+              console.error(err);
+              response.sendStatus(500);
+            } else if (result) {
+              // Log user in
+              util.createToken(req, res, rows[0].id);
+            } else {
+              // Password mismatch, unauthorized
+              console.log("Password incorrect!");
+              response.sendStatus(401);
+            }
+          });
+        } else {
+          // Email not found, unauthorized
+          console.log("Unknown name!");
+          response.sendStatus(401);
+        }
+      }
+    });
   }
-})
+});
 
 api.post('/groups', function(req, res){
   var name = req.body.group_name;
@@ -80,7 +104,6 @@ api.post('/groups', function(req, res){
         console.error(err);
         res.sendStatus(500);
       } else {
-
         res.sendStatus(201);
       }
     });
@@ -88,5 +111,27 @@ api.post('/groups', function(req, res){
     res.sendStatus(400);
   }
 });
+
+api.post('/tasks', function(req, res){
+  var name = req.body.task_name;
+  var description = req.body.description;
+  var owner = req.body.owner;
+  var date = req.body.due_date;
+  if(name !== null && description !== null && owner !== null && date !== null){
+    db.query('INSERT INTO TASKS SET name = ?, description = ?, owner = ?, date = ?;',
+    [name, description, owner, date],
+    function(err, result){
+      if(err){
+        console.error(err);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(201);
+      }
+    });
+  } else {
+    res.sendStatus(400);
+  }
+});
+
 
 module.exports = api;

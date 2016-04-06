@@ -9,6 +9,10 @@ class LoginForm extends Component {
     router: PropTypes.object
   }
 
+  componentWillMount(){
+    window.localStorage.removeItem('pyroToken')
+  }
+
   onSubmit(loginData){
     this.props.login(loginData)
     .then((response) => {
@@ -19,13 +23,13 @@ class LoginForm extends Component {
   }
 
   render() {
-    const {fields:{username, password}, handleSubmit} = this.props
+    const {fields:{name, password}, handleSubmit} = this.props
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <p className="heading">Login</p>
           <div>
-            <input type="text" {...username} placeholder='username' className="biginput"/>
-            <div className="err-msg">{username.touched ? username.error : ''}</div>
+            <input type="text" {...name} placeholder='name' className="biginput"/>
+            <div className="err-msg">{name.touched ? name.error : ''}</div>
           </div>
 
           <div>
@@ -43,13 +47,13 @@ class LoginForm extends Component {
 
 function validate(values) {
   const errors = {}
-  if(!values.username) errors.username = 'Please enter a valid username'
+  if(!values.name) errors.name = 'Please enter a valid name'
   if(!values.password) errors.password = 'Please enter a password'
   return errors
 }
 
 export default reduxForm({
   form: "LoginForm",
-  fields: ['username', 'password'],
+  fields: ['name', 'password'],
   validate
 }, null, {login} )(LoginForm)

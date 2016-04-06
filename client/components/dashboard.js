@@ -43,6 +43,7 @@ class Dashboard extends Component {
           <Link to='/dashboard/creategroup' className="btn hvr-bounce-to-left">Create Group</Link><br/>
           <Link to='/dashboard/joingroup' className="btn hvr-bounce-to-left">Join Group</Link>
         </div>
+        <Link to='/login' className="btn hvr-bounce-to-left">Logout</Link>
       </div>
     )
   }

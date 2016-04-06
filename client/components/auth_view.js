@@ -1,11 +1,22 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import {connect} from 'react-redux'
 
 
 import {Link} from 'react-router'
 
 
-export default class AuthView extends Component {
+class AuthView extends Component {
+
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
+  componentWillMount() {
+    if(this.props.isAuth){
+      this.context.router.push('/dashboard')
+    }
+  }
+
   render() {
     return (
       <div>
@@ -16,3 +27,10 @@ export default class AuthView extends Component {
     )
   }
 }
+
+export default connect(
+  (state)=>{
+    return {
+      isAuth: state.isAuth
+    }
+  })(AuthView)
