@@ -3,6 +3,7 @@ import {reduxForm} from 'redux-form'
 
 import {Link} from 'react-router'
 import {joinGroup} from '../actions/dashboardActions'
+import {fetchGroups} from '../actions/dashboardActions'
 
 class JoinGroupForm extends Component {
   static contextTypes = {
@@ -13,6 +14,7 @@ class JoinGroupForm extends Component {
     this.props.joinGroup(joinGroupData)
     .then(() => {
       this.context.router.push(`/groups/${joinGroupData.group_id}`)
+      this.props.fetchGroups()
     })
   }
 
@@ -43,4 +45,4 @@ export default reduxForm({
   form: "JoinGroupForm",
   fields: ['group_id'],
   validate
-}, null, {joinGroup} )(JoinGroupForm)
+}, null, {joinGroup, fetchGroups} )(JoinGroupForm)
