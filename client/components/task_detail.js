@@ -22,8 +22,8 @@ class TaskDetail extends Component {
     return (
       <div>
         {console.log('task', JSON.stringify(this.props.task))}
-        <h3>{this.props.task.name}</h3>
-        <p>Owned by {this.props.task.owner}</p>
+        <p className="heading">{this.props.task.name}</p>
+        <p className="heading">Owned by {this.props.task.owner}</p>
       </div>
     )
   }

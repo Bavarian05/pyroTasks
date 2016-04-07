@@ -170,7 +170,9 @@ api.post('/group/:id', util.checkToken, function(req, res){
 });
 
 api.get('/task/:id', util.checkToken, function(req, res){
-  db.query('SELECT `id`, `name` FROM TASKS WHERE `id` = ?;', [req.params.id], function(err, rows){
+  db.query('SELECT TASKS.id, TASKS.name, USERS.name AS `owner` FROM TASKS INNER JOIN USERS ON TASKS.owner = USERS.id WHERE TASKS.id = ?;',
+  [req.params.id],
+  function(err, rows){
     if(err){
       console.error(err);
       res.sendStatus(500);

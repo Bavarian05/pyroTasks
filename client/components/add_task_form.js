@@ -51,6 +51,7 @@ class AddTaskForm extends Component {
           <button type="submit" className="btn-invert hvr-bounce-to-left-invert">Add Task</button>
         </div>
 
+        <Link to={`/groups/${this.props.params.groupid}`} className="btn-invert hvr-bounce-to-left-invert">X</Link>
       </form>
     )
   }
