@@ -4,7 +4,7 @@
 
 .showForm-enter.showForm-enter-active {
   transform: translate(0, 0);
-  transition: transform 500ms ease-in;
+  transition: transform 500ms ease-out;
 }
 
 .showForm-leave {
@@ -13,7 +13,7 @@
 
 .showForm-leave.showForm-leave-active {
   transform: translate(100%, 0);
-  transition: transform 300ms ease-in;
+  transition: transform 500ms ease-out;
 }
 
 body, input, button {

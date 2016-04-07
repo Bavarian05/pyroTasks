@@ -30,6 +30,7 @@ class JoinGroupForm extends Component {
         <div className="btn-group">
           <button type="submit" className="btn-invert hvr-bounce-to-left-invert">Join</button>
         </div>
+        <Link to="/dashboard" className="btn-invert hvr-bounce-to-left-invert">X</Link>
       </form>
     )
   }
