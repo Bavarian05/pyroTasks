@@ -21,6 +21,7 @@ class TaskDetail extends Component {
     }
     return (
       <div>
+        {console.log('task', JSON.stringify(this.props.task))}
         <h3>{this.props.task.name}</h3>
         <p>Owned by {this.props.task.owner}</p>
       </div>
@@ -32,6 +33,7 @@ class TaskDetail extends Component {
 
 export default connect(
   (state)=>{
+    console.log(state);
     return {
       task: state.tasks.task,
       isAuth: state.isAuth

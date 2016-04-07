@@ -20,7 +20,7 @@ class GroupDetail extends Component {
   }
 
   renderTasks() {
-    if(this.props.tasks.length === 0) return <p className="err-msg">Sorry, there are no tasks in this group</p>
+    if(this.props.tasks.length === 0 || !Array.isArray(this.props.tasks)) return <p className="err-msg">Sorry, there are no tasks in this group</p>
     return this.props.tasks.map((task) => {
       return (
         <TaskEntry task={task} key={task.id}/>

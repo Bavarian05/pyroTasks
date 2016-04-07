@@ -8,6 +8,7 @@ exports.createToken = function(request, response, user_id){
 };
 
 exports.checkToken = function(request, response, next){
+  console.log(request.headers['x-access-token']);
   var secret = require('./config.js').jwtsecret;
   if(!request.headers['x-access-token']){
     response.sendStatus(401);

@@ -5,6 +5,7 @@ import ReactAnimate from 'react-addons-css-transition-group'
 
 import {Link} from 'react-router'
 import {createGroup} from '../actions/dashboardActions'
+import {fetchGroups} from '../actions/dashboardActions'
 
 class CreateGroupForm extends Component {
   static contextTypes = {
@@ -15,6 +16,7 @@ class CreateGroupForm extends Component {
     this.props.createGroup(createGroupData)
     .then(() => {
       this.context.router.push('/dashboard')
+      this.props.fetchGroups()
     })
   }
 
@@ -52,4 +54,4 @@ export default reduxForm({
   form: "CreateGroupForm",
   fields: ['group_name', 'members'],
   validate
-}, null, {createGroup} )(CreateGroupForm)
+}, null, {createGroup, fetchGroups} )(CreateGroupForm)

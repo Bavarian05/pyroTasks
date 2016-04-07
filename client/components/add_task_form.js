@@ -18,7 +18,7 @@ class AddTaskForm extends Component {
   }
 
   render() {
-    const {fields:{task_name, assignees, due_date, owner}, handleSubmit} = this.props
+    const {fields:{task_name, assignees, due_date, owner, description}, handleSubmit} = this.props
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="form-modal">
         <p className="heading">New Task</p>
