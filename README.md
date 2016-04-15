@@ -1,2 +1,2 @@
 # pyroTasks
-A web application built with React, Redux, and Python to help teams collaborate more effectively. 
+A web application built with React, Redux, and Node/Express to help teams collaborate more effectively. 
